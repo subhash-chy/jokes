@@ -19,7 +19,7 @@ function Header() {
           </div>
         </div>
       </div>
-      <div className="hidden md:block">
+      <div className="hidden md:block  w-20 h-10">
         <Button />
       </div>
     </nav>

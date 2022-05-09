@@ -3,7 +3,7 @@ import Image from "next/image";
 function Testimonials(props) {
   const { avatar, name, statement } = props;
   return (
-    <div className="border-2 border-[#422B46] p-8 flex items-start justify-between gap-8 rounded-md">
+    <div className="border-2 border-[#422B46] p-8 flex items-start justify-between gap-8 rounded-md min-w-full md:min-w-[50%]">
       <div className="flex flex-col items-center gap-2">
         <div className="relative w-10 h-10 rounded-full">
           <Image

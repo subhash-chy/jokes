@@ -1,5 +1,10 @@
 import Image from "next/image";
 import { Footer, Header, Login, Testimonial, WhyJoker } from "../components";
+import { testimonials } from "../data";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Autoplay } from "swiper";
+SwiperCore.use([Autoplay]);
+import "swiper/css";
 
 export default function Home() {
   return (
@@ -26,22 +31,44 @@ export default function Home() {
             <WhyJoker />
           </div>
 
-          <div className="flex">
-            {/* Testimonials Section */}
-            <Testimonial
-              avatar="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-              name="Heimdaal"
-              statement="Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque voluptates placeat iusto accusamus? Nihil, nisi ab facere sint
-              accusantium nulla eligendi adipisci reiciendis beatae dolor tempore
-              fugit minus dolorum reprehenderit."
-            />
-            {/* <Testimonial /> */}
+          <div className="">
+            <h1 className="text-3xl font-semibold text-[#C900EC] mb-8">
+              Testimonials
+            </h1>
+            <Swiper
+              spaceBetween={50}
+              slidesPerView={1}
+              breakpoints={{
+                940: {
+                  slidesPerView: 2,
+                  spaceBetween: 50,
+                },
+              }}
+              freeMode={true}
+              speed={5000}
+              freeModeMomentum={false}
+              loop={true}
+              autoplay={{ delay: 0, disableOnInteraction: false }}
+            >
+              {/* Testimonials Section */}
+              {testimonials.map((testimonial) => (
+                <SwiperSlide key={testimonial.statement}>
+                  <Testimonial
+                    avatar={testimonial.avatar}
+                    name={testimonial.name}
+                    statement={testimonial.statement}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
+
+          {/* <Testimonial /> */}
         </div>
       </main>
 
       {/* Footer Section */}
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
