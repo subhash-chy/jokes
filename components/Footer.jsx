@@ -1,6 +1,11 @@
+import Link from "next/link";
 import Button from "./Button";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 function Footer() {
+  const { data: session } = useSession();
+  const router = useRouter();
   return (
     <footer className="px-8 md:px-16 bg-[#422B46] py-20 text-white">
       <div className="grid grid-cols-12 gap-3 md:gap-10">
@@ -17,11 +22,27 @@ function Footer() {
             <h1 className="text-xl md:text-2xl font-semibold text-[#C900EC] mb-5">
               Quick Links
             </h1>
-            <p className="md:text-xl cursor-pointer">Home</p>
+            <p className="md:text-xl cursor-pointer">
+              <Link href={"/"}>Home</Link>
+            </p>
             <p className="md:text-xl cursor-pointer">Categories</p>
-            <div className="w-full h-12 md:text-xl">
-              <Button />
-            </div>
+            {!session ? (
+              <div
+                onClick={() => router.push("/auth/signin")}
+                className="w-full h-12 md:text-xl"
+              >
+                <Button />
+              </div>
+            ) : (
+              <div>
+                <p className="text-sm">
+                  Signed in as{" "}
+                  <span className="font-semibold text-[#C900EC]">
+                    {session?.user?.name}
+                  </span>
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
