@@ -1,11 +1,13 @@
-import { SearchIcon } from "@heroicons/react/outline";
+import { SearchIcon, LogoutIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import Button from "./Button";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 function Header() {
+  const [showProfile, setShowProfile] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
   return (
@@ -26,31 +28,72 @@ function Header() {
         </div>
       </div>
 
-      <div
-        className="hidden md:block cursor-pointer"
-        onClick={() => (session ? signOut() : router.push("/auth/signin"))}
-      >
+      <div className="hidden md:block">
         {!session ? (
-          <div className="w-20 h-10">
+          <div
+            className="w-20 h-10 cursor-pointer"
+            onClick={() => router.push("/auth/signin")}
+          >
             <Button />
           </div>
         ) : (
-          <div className="text-white sm:whitespace-nowrap flex items-center gap-3">
-            <div className="relative w-8 h-8 rounded-full hidden lg:block">
-              <Image
-                className="rounded-full"
-                src={session?.user?.image}
-                objectFit="cover"
-                layout="fill"
-              />
+          <>
+            <div
+              className="text-white sm:whitespace-nowrap flex items-center gap-3 cursor-pointer"
+              onClick={() => setShowProfile(!showProfile)}
+            >
+              <div className="relative w-8 h-8 rounded-full hidden lg:block">
+                <Image
+                  className="rounded-full"
+                  src={session?.user?.image}
+                  objectFit="cover"
+                  layout="fill"
+                />
+              </div>
+              <div>
+                <h1 className="text-sm font-semibold">
+                  <span className="text-[#C900EC]">{session?.user?.name}!</span>
+                </h1>
+                <p className="text-xs text-[#989898]">
+                  Explore the best jokes.
+                </p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-sm font-semibold">
-                <span className="text-[#C900EC]">{session?.user?.name}!</span>
-              </h1>
-              <p className="text-xs text-[#989898]">Explore the best jokes.</p>
-            </div>
-          </div>
+            {showProfile && (
+              <div className="absolute rounded-md right-5 mt-2 text-white z-10 bg-[#422B46] border border-[#663F6C] p-8 drop-shadow-2xl">
+                <h1 className="text-2xl font-semibold text-[#C900EC]">
+                  Your Profile
+                </h1>
+                <div className="flex items-center gap-5 py-5">
+                  <div className="relative w-12 h-12 rounded-full">
+                    <Image
+                      className="rounded-full"
+                      src={session?.user?.image}
+                      objectFit="cover"
+                      layout="fill"
+                    />
+                  </div>
+                  <div>
+                    <h1 className="text-xl font-medium">
+                      {session?.user?.name}
+                    </h1>
+                    <p className="text-sm text-[#989898]">
+                      {session?.user?.email}
+                    </p>
+                  </div>
+                </div>
+                <div className="border-t-2 border-[#663F6C] pt-8">
+                  <div
+                    className="bg-[#663F6C] py-3 rounded-md flex items-center gap-2 justify-center px-5 cursor-pointer"
+                    onClick={() => signOut()}
+                  >
+                    <p className="text-lg">Logout</p>
+                    <LogoutIcon className="w-6" />
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
         )}
       </div>
     </nav>

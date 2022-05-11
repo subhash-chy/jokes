@@ -9,3 +9,4 @@ export { default as WhyJoker } from "./WhyJoker";
 export { default as Testimonial } from "./Testimonial";
 export { default as GlobalLayout } from "./GlobalLayout";
 export { default as Welcome } from "./Welcome";
+export { default as Joke } from "./Joke";
