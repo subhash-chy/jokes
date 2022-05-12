@@ -1,10 +1,12 @@
 import { useSession } from "next-auth/react";
 import { Joke, Welcome } from "../components";
-import { SunIcon } from "@heroicons/react/outline";
+import { SunIcon, RefreshIcon } from "@heroicons/react/outline";
+import { useRouter } from "next/router";
 
 export default function Home(props) {
   const { success, body } = props;
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   return (
     <>
@@ -34,59 +36,30 @@ export default function Home(props) {
           </div>
         </div>
       )}
+
+      <div className="px-8 md:px-16 mb-20 text-white">
+        <button
+          className="flex items-center justify-center gap-2 bg-[#663F6C] text-[#C900EC] uppercase px-3 py-2 rounded-md w-full sm:w-fit h-full"
+          onClick={() => router.reload(window.location.pathname)}
+        >
+          <RefreshIcon className="w-5" /> Refresh Jokes
+        </button>
+      </div>
     </>
   );
 }
 
 export async function getStaticProps() {
-  const jokes = {
-    success: true,
-    body: [
-      {
-        _id: "60dd360040b99f545c5c3c8d",
-        setup: "Did you hear about the creator of Arm & Hammer?",
-        punchline:
-          "He used to be armed and hammered, but he really cleaned up his act.",
-        type: "creator",
-        likes: [],
-        author: {
-          name: "unknown",
-          id: null,
-        },
-        approved: true,
-        date: 1618108661,
-        NSFW: false,
+  const jokes = await fetch(
+    "https://dad-jokes.p.rapidapi.com/random/joke?count=5",
+    {
+      method: "GET",
+      headers: {
+        "X-RapidAPI-Host": "dad-jokes.p.rapidapi.com",
+        "X-RapidAPI-Key": process.env.X_RAPID_API_KEY,
       },
-      {
-        _id: "60dd37ad4c0735daef7ec636",
-        setup: "My friend always wanted to get run over by a steam train...",
-        punchline: "So when it finally happened, he was chuffed to bits.",
-        type: "steam",
-        likes: [],
-        author: {
-          name: "unknown",
-          id: null,
-        },
-        approved: true,
-        date: 1618108661,
-        NSFW: false,
-      },
-      {
-        _id: "60dd36f455bd0135080d3f65",
-        setup: "What was the name of Schrodinger's cat?",
-        punchline: "InterMittens.",
-        type: "mitten",
-        likes: [],
-        author: {
-          name: "unknown",
-          id: null,
-        },
-        approved: true,
-        date: 1618108661,
-        NSFW: false,
-      },
-    ],
-  };
+    }
+  ).then((res) => res.json());
 
   const success = jokes.success;
   const body = jokes.body;
