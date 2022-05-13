@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import { Joke, Welcome } from "../components";
 import { SunIcon, RefreshIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function Home(props) {
   const { success, body } = props;
@@ -10,6 +11,9 @@ export default function Home(props) {
 
   return (
     <>
+      <Head>
+        <title>Joker</title>
+      </Head>
       {status === "loading" ? (
         <div className="px-8 md:px-16 py-20 text-[#C900EC] flex flex-col gap-3 items-center justify-center">
           <SunIcon className="w-10 animate-spin" />
@@ -18,7 +22,7 @@ export default function Home(props) {
       ) : !session && status === "unauthenticated" ? (
         <Welcome />
       ) : (
-        // This part will only show of user is logged in
+        // This part will only show if user is logged in
         <div className="px-8 md:px-16 py-20 text-white">
           <h1 className="text-[#C900EC] text-3xl font-semibold mb-5">
             Explore Jokes

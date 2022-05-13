@@ -52,6 +52,7 @@ function Header() {
             >
               <div className="relative w-8 h-8 rounded-full hidden lg:block">
                 <Image
+                  alt={session?.user?.name}
                   className="rounded-full"
                   src={session?.user?.image}
                   objectFit="cover"
@@ -75,6 +76,7 @@ function Header() {
                 <div className="flex items-center gap-5 py-5">
                   <div className="relative w-12 h-12 rounded-full">
                     <Image
+                      alt={session?.user?.name}
                       className="rounded-full"
                       src={session?.user?.image}
                       objectFit="cover"
