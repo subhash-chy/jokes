@@ -34,17 +34,15 @@ export default function Home(props) {
               />
             ))}
           </div>
+
+          <button
+            className="mt-10 flex items-center justify-center gap-2 bg-[#663F6C] text-[#C900EC] uppercase px-3 py-2 rounded-md w-full sm:w-fit h-full"
+            onClick={() => router.reload(window.location.pathname)}
+          >
+            <RefreshIcon className="w-5" /> Refresh Jokes
+          </button>
         </div>
       )}
-
-      <div className="px-8 md:px-16 mb-20 text-white">
-        <button
-          className="flex items-center justify-center gap-2 bg-[#663F6C] text-[#C900EC] uppercase px-3 py-2 rounded-md w-full sm:w-fit h-full"
-          onClick={() => router.reload(window.location.pathname)}
-        >
-          <RefreshIcon className="w-5" /> Refresh Jokes
-        </button>
-      </div>
     </>
   );
 }
