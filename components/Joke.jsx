@@ -6,8 +6,8 @@ function Joke(props) {
         <p className="text-xs text-[#C900EC]">_id: {id}</p>
       </div>
       <div className="bg-[#422B46] p-5 md:px-8 rounded-b-md">
-        <h1 className="mb-3 text-[#C900EC] font-semibold text-2xl">{setup}</h1>
-        <p className="text-[#cccccc] mb-5 text-lg leading-tight">{punchline}</p>
+        <h1 className="mb-3 text-[#C900EC] font-semibold text-xl">{setup}</h1>
+        <p className="text-[#cccccc] mb-5 leading-tight">{punchline}</p>
         <p className="text-[#C900EC] text-sm">{type}</p>
       </div>
     </div>

@@ -47,7 +47,7 @@ function Header() {
         ) : (
           <>
             <div
-              className="text-white sm:whitespace-nowrap flex items-center gap-3 cursor-pointer"
+              className="text-white sm:whitespace-nowrap flex items-center gap-3 cursor-pointer transition group"
               onClick={() => setShowProfile(!showProfile)}
             >
               <div className="relative w-8 h-8 rounded-full hidden lg:block">
@@ -63,7 +63,7 @@ function Header() {
                 <h1 className="text-sm font-semibold">
                   <span className="text-[#C900EC]">{session?.user?.name}!</span>
                 </h1>
-                <p className="text-xs text-[#989898]">
+                <p className="text-xs text-[#989898] group-hover:border-b-2 border-[#663F6C]">
                   Explore the best jokes.
                 </p>
               </div>

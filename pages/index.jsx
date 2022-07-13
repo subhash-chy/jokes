@@ -40,7 +40,7 @@ export default function Home(props) {
           </div>
 
           <button
-            className="mt-10 flex items-center justify-center gap-2 bg-[#663F6C] text-[#C900EC] uppercase px-3 py-2 rounded-md w-full sm:w-fit h-full"
+            className="mt-10 flex items-center justify-center gap-2 bg-[#663F6C] text-[#C900EC] uppercase px-4 py-3 rounded-md w-full sm:w-fit h-full transition hover:opacity-90"
             onClick={() => router.reload(window.location.pathname)}
           >
             <RefreshIcon className="w-5" /> Refresh Jokes
